@@ -5,7 +5,8 @@ ob_start();
 <form action="/action_page.php">
     <div class="mb-3 mt-3">
         <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" data-validation="required">
+        <div class="error" id="emailError"></div>
     </div>
     <div class="mb-3">
         <label for="pwd" class="form-label">Password:</label>

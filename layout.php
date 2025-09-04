@@ -7,6 +7,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/additional-methods.js"> </script>
+    <script src="js/validate.js"> </script>
 
 </head>
 
