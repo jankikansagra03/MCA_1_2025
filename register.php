@@ -73,7 +73,7 @@ ob_start();
     //             $(element).addClass('is-valid').removeClass('is-invalid');
     //         }
     //     })
-    })
+    // })
 </script>
 <form id="register" method="post">
     <div class="mb-3 mt-3">
