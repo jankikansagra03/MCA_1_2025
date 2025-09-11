@@ -70,6 +70,11 @@ $(document).ready(function () {
         ) {
           errorMessage = `File size must be less than ${filesize} KB.`;
         }
+      } else if (
+        validationType.includes("file") &&
+        field[0].files.length === 0
+      ) {
+        errorMessage = "Please upload a file.";
       }
       // Select field validation
       if (
