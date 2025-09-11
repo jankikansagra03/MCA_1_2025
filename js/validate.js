@@ -72,7 +72,7 @@ $(document).ready(function () {
         }
       }
       // Select field validation
-      else if (
+      if (
         field.is("select") &&
         validationType.includes("required") &&
         (value === "" || field.find("option:selected").index() === 0)
