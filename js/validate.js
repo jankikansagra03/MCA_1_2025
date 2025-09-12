@@ -19,16 +19,16 @@ $(document).ready(function () {
           errorMessage = "Please enter a valid email address.";
         }
       }
-      if (
-        validationType.includes("strongPassword") &&
-        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{8,}$/.test(value)
-      ) {
+      if (validationType.includes("strongPassword")) {
+        let pwdRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        !pwdRegex.test(value);
         errorMessage =
           "Password must be at least 8 characters, including uppercase and lowercase letters, numbers, and a special character.";
       }
       // Confirm password validation
       if (validationType.includes("confirmPassword")) {
-        let confirmPassword = field.val().trim();
+        confirmPassword = value;
         let password = $("#" + field.data("password-id"))
           .val()
           .trim();
