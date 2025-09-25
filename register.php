@@ -1,5 +1,80 @@
 <?php
-// register.php
+include_once('db_connect.php');
+include_once('mailer.php');
+if (isset($_POST['regbtn'])) {
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $gender = $_POST['gender'];
+    $mobile = $_POST['mobile'];
+    $address = $_POST['address'];
+    $profile_photo = uniqid() . $_FILES['profile_photo']['name'];
+    $profile_photo_tmp = $_FILES['profile_photo']['tmp_name'];
+    $token = bin2hex(random_bytes(50));
+    // $encrypted_pwd = md5($password);
+
+    $q = "INSERT INTO `registration`(`fullname`, `email`, `password`, `mobile`, `gender`, `profile_picture`, `address`,`token`) VALUES ('$fullname','$email','$password',$mobile,'$gender','$profile_photo','$address','$token')";
+    echo $q;
+
+    if (mysqli_query($con, $q)) {
+        if (!is_dir("images/profile_pictures")) {
+            mkdir("images/profile_pictures");
+        }
+        move_uploaded_file($profile_photo_tmp, "images/profile_pictures/" . $profile_photo);
+        $body = '<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Your Email</title>
+</head>
+<body style="margin:0; padding:0; background-color:#fdf6e3; font-family:Arial, sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#fdf6e3; padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1); overflow:hidden;">
+          <tr>
+            <td align="center" style="background-color:#0d9488; padding:20px;">
+              <h2 style="color:#ffffff; margin:0;">Verify Your Email</h2>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:40px 20px;">
+              <p style="font-size:16px; color:#333; margin-bottom:30px;">
+                Please verify your email address by clicking the button below.
+              </p>
+              <a href="http://localhost/MCA_Sample-1/verify.php?token=' . $token . '&email=' . $email . '" 
+                 style="display:inline-block; background-color:#facc15; color:#0d9488; text-decoration:none; 
+                        font-size:16px; font-weight:bold; padding:14px 30px; border-radius:8px;">
+                 Verify Email
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="background-color:#f9fafb; padding:15px; font-size:12px; color:#666;">
+              © 2025 Your Company. All rights reserved.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+';
+        if (sendEmail($email, "Email Verification", $body, "")) {
+            setcookie("success", "Email Registered and verification email sent to registered email address", time() + 5);
+        }
+    } else {
+        setcookie("error", "Registration failed. Try again", time() + 5);
+    }
+?>
+    <script>
+        window.location.href = "register.php";
+    </script>
+<?php
+}
 ob_start();
 ?>
 
@@ -15,7 +90,7 @@ ob_start();
                 </div>
 
                 <!-- Form -->
-                <form method="post" action="register1.php" enctype="multipart/form-data" id="registerForm">
+                <form method="post" action="register.php" enctype="multipart/form-data" id="registerForm">
                     <div class="card-body p-4">
                         <div class="row g-4">
                             <!-- Left Column -->
@@ -40,7 +115,7 @@ ob_start();
                                 <div class="mb-3">
                                     <label class="form-label fw-semibold">Password</label>
                                     <input type="password" class="form-control border-2 border-teal" name="password"
-                                        placeholder="Enter password" data-validation="required strongPassword min max"
+                                        placeholder="Enter password" data-validation="required strongPassword min max" id="password"
                                         data-min="8" data-max="25">
                                     <span class="error text-danger" id="passwordError"></span>
                                 </div>

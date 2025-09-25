@@ -2,7 +2,11 @@
 
 $con = mysqli_connect("localhost", "root", "",);
 
-mysqli_select_db($con, "MCA_sample_1");
+try {
+    mysqli_select_db($con, "MCA_sample_1");
+} catch (Exception $e) {
+    echo "Error in selecting database";
+}
 
 // if ($con) {
 //     // $q = "create database MCA_sample_1";
