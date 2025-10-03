@@ -14,7 +14,7 @@ if (isset($_POST['regbtn'])) {
     // $encrypted_pwd = md5($password);
 
     $q = "INSERT INTO `registration`(`fullname`, `email`, `password`, `mobile`, `gender`, `profile_picture`, `address`,`token`) VALUES ('$fullname','$email','$password',$mobile,'$gender','$profile_photo','$address','$token')";
-    echo $q;
+    // echo $q;
 
     if (mysqli_query($con, $q)) {
         if (!is_dir("images/profile_pictures")) {

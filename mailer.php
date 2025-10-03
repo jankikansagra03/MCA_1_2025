@@ -31,7 +31,7 @@ function sendEmail($to, $subject, $body, $file)
         $mail->Host       = 'smtp.gmail.com';      // sets GMAIL as the SMTP server
         $mail->Port       = 465;                   // set the SMTP port for the GMAIL server
         $mail->Username   = "kansagrajanki@gmail.com";  // GMAIL username(from)
-        $mail->Password   = "Your App Password";            // GMAIL password(from)
+        $mail->Password   = "your password";
         $mail->SetFrom('kansagrajanki@gmail.com', 'MCA_Sample'); //from
         $mail->AddReplyTo("kansagrajanki@gmail.com", "MCA_Sample"); //to
         $mail->Subject    = $subject;
