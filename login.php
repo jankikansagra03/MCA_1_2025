@@ -1,7 +1,6 @@
 <?php
 include 'db_connect.php';
-unset($_SESSION['admin_email']);
-// session_start();
+session_start();
 if (isset($_POST['loginbtn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -13,6 +12,7 @@ if (isset($_POST['loginbtn'])) {
     if ($rows == 1) {
         while ($res = mysqli_fetch_assoc($result)) {
             if ($res['status'] == 'Active') {
+                echo 'Hello';
                 if ($res['role'] == "User") {
                     $_SESSION['user_email'] = $email;
                     setcookie("success", "Login Successful", time() + 5);

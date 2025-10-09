@@ -1,6 +1,13 @@
 <?php
 // user_dashboard.php
+include_once("db_connect.php");
+include_once("user_authentication.php");
 ob_start();
+$email = $_SESSION['user_email'];
+$q = "Select * from registration where email='$email'";
+$result = mysqli_query($con, $q);
+$rows = mysqli_fetch_assoc($result);
+
 ?>
 
 <div class="container-fluid py-4" style="background-color:#f8f9fa;">
@@ -13,9 +20,9 @@ ob_start();
             <div class="col-lg-3">
                 <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
                     <div class="card-header text-center p-4" style="background: linear-gradient(135deg, #0d9488, #facc15); color:white;">
-                        <img src="uploads/profile_photo.jpg" alt="Profile" class="rounded-circle border border-3 border-white mb-2" width="90" height="90">
-                        <h5 class="fw-bold mb-0">John Doe</h5>
-                        <small>john.doe@example.com</small>
+                        <img src="images/profile_pictures/<?= $rows['profile_picture'] ?>" alt="Profile" class="rounded-circle border border-3 border-white mb-2" width="90" height="90">
+                        <h5 class="fw-bold mb-0"><?= $rows['fullname'] ?></h5>
+                        <small><?= $_SESSION['user_email'] ?></small>
                     </div>
                     <div class="list-group list-group-flush">
                         <a href="edit_profile.php" class="list-group-item list-group-item-action" style="color:#0d9488"><i class="fa-solid fa-user-pen me-2"></i>Edit Profile</a>

@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,8 +22,12 @@ session_start();
 
     <?php
     // $_SESSION['user_id'] =  "abc";
-    unset($_SESSION['user_id']);
-    if (isset($_SESSION['user_id'])) {
+
+    if (isset($_SESSION['user_email'])) {
+        $email = $_SESSION['user_email'];
+        $q = "Select * from registration where email='$email'";
+        $result = mysqli_query($con, $q);
+        $rows = mysqli_fetch_assoc($result);
     ?>
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom mb-4">
             <div class="container">
@@ -47,12 +51,12 @@ session_start();
                         <!-- Profile Dropdown -->
                         <li class="nav-item dropdown ms-3">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                                <img src="uploads/profile_photo.jpg" alt="Profile" class="rounded-circle" width="40" height="40">
-                                <span class="ms-2" style="color:#0d9488;">John Doe</span>
+                                <img src="images/profile_pictures/<?= $rows['profile_picture'] ?>" alt="Profile" class="rounded-circle" width="40" height="40">
+                                <span class="ms-2" style="color:#0d9488;"><?php echo $rows['fullname']; ?></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                 <li><a class="dropdown-item" href="user_dashboard.php"><i class="fa-solid fa-eye me-2"></i>User Dashboard</a></li>
-                                <li><a class="dropdown-item" href="edit_profile.php"><i class="fa-solid fa-user-pen me-2"></i>Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="view_profile.php"><i class="fa-solid fa-user-pen me-2"></i>Edit Profile</a></li>
                                 <li><a class="dropdown-item" href="change_password.php"><i class="fa-solid fa-key me-2"></i>Change Password</a></li>
                                 <li><a class="dropdown-item" href="cart.php"><i class="fa-solid fa-cart-shopping me-2"></i>Cart</a></li>
                                 <li><a class="dropdown-item" href="wishlist.php"><i class="fa-solid fa-heart me-2"></i>Wishlist</a></li>

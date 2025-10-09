@@ -1,16 +1,16 @@
 <?php
+include_once('db_connect.php');
+include_once('user_authentication.php');
 // view_profile.php
 ob_start();
 
+$email = $_SESSION['user_email'];
+$q = "Select * from registration where email='$email'";
+$result = mysqli_query($con, $q);
+$user = mysqli_fetch_assoc($result);
+
 // Mock user data (replace later with database fetch)
-$user = [
-    'fullname' => 'John Doe',
-    'email' => 'johndoe@example.com',
-    'gender' => 'Male',
-    'mobile' => '9876543210',
-    'profile_photo' => 'uploads/profile/default.png',
-    'address' => '123, Green Avenue, Mumbai',
-];
+
 ?>
 
 <div class="container py-5">
@@ -29,7 +29,7 @@ $user = [
                     <div class="row g-4 align-items-center">
                         <!-- Profile Picture -->
                         <div class="col-md-4 text-center">
-                            <img src="<?= htmlspecialchars($user['profile_photo']); ?>"
+                            <img src="images/profile_pictures/<?= $user['profile_picture'] ?>"
                                 alt="Profile Picture"
                                 class="rounded-circle shadow-sm border"
                                 style="width:150px; height:150px; object-fit:cover;">
